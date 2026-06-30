@@ -1,0 +1,1420 @@
+<!doctype html>
+<html lang="en" class="">
+  <head>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Rizal Efendi is a Full Stack Web Developer specializing in Laravel, CodeIgniter, PHP, JavaScript, MySQL, and deployment services."
+    />
+    <meta
+      name="keywords"
+      content="Rizal Efendi, Full Stack Web Developer, Laravel, CodeIgniter, PHP, JavaScript, MySQL, web development"
+    />
+    <meta name="author" content="Rizal Efendi" />
+    <title>Rizal Efendi | Full Stack Web Developer</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              bg: "#f8fafc",
+              text: "#202124",
+              accent: "#4285F4",
+              "google-blue": "#4285F4",
+              "google-red": "#ea4335",
+              "google-yellow": "#fbbc05",
+              "google-green": "#34a853",
+            },
+            fontFamily: {
+              sans: ["Inter", "Roboto", "sans-serif"],
+              poppins: ["Inter", "sans-serif"],
+              gloria: ['"Gloria Hallelujah"', "cursive"],
+              tangerine: ['"Tangerine"', "cursive"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Roboto:wght@400;500;700&family=Gloria+Hallelujah&family=Merienda:wght@300..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Tangerine:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Animate On Scroll (AOS) Library -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <!-- Lottie Animation Library -->
+    <script src="https://unpkg.com/lottie-web@5.7.4/build/player/lottie.min.js"></script>
+
+    <!-- Alpine.js (For UI Interactivity like Navbar Toggle) -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- Custom CSS and JS -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <script src="js/script.js"></script>
+  </head>
+
+  <body class="bg-slate-50 text-[#202124] font-sans">
+    <!-- Navbar -->
+    <nav
+      x-data="{ open: false, activeSection: 'home' }"
+      x-init="
+    window.addEventListener('scroll', () => {
+      const sections = ['home', 'about', 'skills','resume', 'projects', 'services', 'contact'];
+      const scrollY = window.scrollY + 150;
+      for (const id of sections) {
+        const section = document.getElementById(id);
+        if (section && scrollY >= section.offsetTop && scrollY < section.offsetTop + section.offsetHeight) {
+          activeSection = id;
+        }
+      }
+    });
+  "
+      class="fixed w-full top-0 left-0 z-50 border-b border-slate-200/80 bg-white/90 text-[#202124] shadow-sm backdrop-blur transition-all duration-500"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <a href="#" class="text-xl md:text-3xl font-extrabold tracking-wide text-[#4285F4]"> Rizal Efendi </a>
+
+          <!-- Desktop Navigation -->
+          <div class="hidden md:flex items-center space-x-8 text-md font-medium">
+            <template
+              x-for="link in ['Home', 'About', 'Skills', 'Resume', 'Projects', 'Services', 'Contact']"
+              :key="link"
+            >
+              <a :href="'#' + link.toLowerCase()" class="relative group transition-all duration-300">
+                <span
+                  :class="activeSection === link.toLowerCase() ? 'text-[#4285F4]' : 'text-[#202124]'"
+                  class="transition duration-300"
+                  x-text="link"
+                ></span>
+                <!-- Underline effect -->
+                <span
+                  class="absolute left-0 -bottom-1 h-[2px] bg-[#4285F4] transition-all duration-300"
+                  :class="activeSection === link.toLowerCase() ? 'w-full' : 'w-0 group-hover:w-full'"
+                ></span>
+              </a>
+            </template>
+          </div>
+
+          <!-- Resume Button (Desktop) -->
+          <div class="hidden md:flex">
+            <a
+              href="#resume"
+              class="rounded-full bg-[#4285F4] px-5 py-2 font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#3367d6] hover:shadow-md"
+            >
+              Resume
+            </a>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden flex items-center">
+            <button @click="open = !open" class="focus:outline-none">
+              <!-- Menu Icon -->
+              <svg
+                x-show="!open"
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-7 h-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8h16M4 16h16" />
+              </svg>
+              <!-- Close Icon -->
+              <svg
+                x-show="open"
+                x-cloak
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-7 h-7"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Navigation Dropdown -->
+      <div
+        x-show="open"
+        x-transition:enter="transition ease-out duration-500"
+        x-transition:enter-start="opacity-0 -translate-y-5"
+        x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-400"
+        x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 -translate-y-5"
+        class="md:hidden rounded-b-3xl border-t border-slate-200 bg-white/95 px-6 py-6 text-center text-base font-medium shadow-lg backdrop-blur"
+      >
+        <template x-for="link in ['Home', 'About', 'Skills', 'Resume', 'Projects', 'Services', 'Contact']" :key="link">
+          <a
+            :href="'#' + link.toLowerCase()"
+            :class="activeSection === link.toLowerCase() ? 'text-[#4285F4] bg-[#4285F4]/10' : 'text-[#202124] hover:bg-slate-50'"
+            class="mb-2 block rounded-full px-4 py-2 transition duration-300"
+            x-text="link"
+          ></a>
+        </template>
+
+        <!-- Resume Button (Mobile) -->
+        <a
+          href="#resume"
+          class="mt-3 inline-block rounded-full bg-[#4285F4] px-4 py-2 text-white shadow-sm transition duration-300 hover:bg-[#3367d6] hover:shadow-md"
+        >
+          Resume
+        </a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative flex min-h-[100vh] items-center overflow-hidden bg-gradient-to-br from-white via-slate-50/40 to-white px-4 pt-24 sm:px-6 lg:px-8"
+    >
+      <!-- Animated Background Gradients -->
+      <div
+        class="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(66,133,244,0.15),_transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(234,67,53,0.12),_transparent_32%),radial-gradient(circle_at_center,_rgba(52,168,83,0.08),_transparent_40%)]"
+      ></div>
+      <div class="absolute left-8 top-20 h-48 w-48 rounded-full bg-[#4285F4]/15 blur-3xl animate-pulse"></div>
+      <div
+        class="absolute bottom-8 right-10 h-56 w-56 rounded-full bg-[#fbbc05]/12 blur-3xl animate-pulse"
+        style="animation-delay: 1s"
+      ></div>
+      <div
+        class="absolute -left-20 bottom-20 h-40 w-40 rounded-full bg-[#34a853]/10 blur-3xl animate-pulse"
+        style="animation-delay: 2s"
+      ></div>
+
+      <div class="relative z-10 mx-auto grid max-w-7xl gap-12 py-20 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+        <div class="text-center lg:text-left" data-aos="fade-right" data-aos-duration="1000">
+          <!-- Badge -->
+          <span
+            class="mb-6 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-4 py-2.5 text-sm font-medium text-[#5f6368] shadow-sm backdrop-blur-sm transition-all duration-300 hover:shadow-md hover:border-[#4285F4]/30"
+          >
+            <span class="relative h-2.5 w-2.5 rounded-full bg-[#34a853]">
+              <span class="absolute inset-0 rounded-full bg-[#34a853] animate-ping opacity-75"></span>
+            </span>
+            Available for Freelance • Open to Collaboration
+          </span>
+
+          <!-- Main Heading -->
+          <h1 class="mb-6 text-4xl font-extrabold leading-tight tracking-tight text-[#202124] sm:text-5xl lg:text-6xl">
+            Hi, I'm
+            <span
+              id="typed-name"
+              class="inline-block text-[#4285F4] underline decoration-2 underline-offset-4 decoration-[#4285F4]"
+            ></span>
+            <span id="cursor" class="text-[#4285F4] ml-2">|</span>
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="mb-4 text-xl font-bold text-[#4285F4] sm:text-2xl" data-aos="fade-right" data-aos-delay="200">
+            Full Stack Web Developer
+          </p>
+
+          <!-- Description -->
+          <p
+            class="mx-auto mb-8 max-w-2xl text-base leading-relaxed text-[#5f6368] sm:text-lg lg:mx-0"
+            data-aos="fade-right"
+            data-aos-delay="400"
+          >
+            An Information Systems graduate passionate about building scalable web applications, business systems, and
+            digital products. I transform ideas into reliable, user-friendly solutions with clean architecture, modern
+            technologies, and practical problem-solving.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap justify-center gap-4 lg:justify-start" data-aos="zoom-in" data-aos-delay="600">
+            <a
+              href="#projects"
+              class="group relative inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-[#4285F4] to-[#3367d6] px-8 py-3 text-lg font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 active:scale-95"
+            >
+              <span>View My Work</span>
+              <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+            </a>
+            <a
+              href="#contact"
+              class="group relative inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/80 px-8 py-3 text-lg font-semibold text-[#202124] shadow-md backdrop-blur-sm transition-all duration-300 hover:bg-white hover:shadow-lg hover:-translate-y-1 active:scale-95"
+            >
+              <span>Get In Touch</span>
+              <i class="fa-solid fa-arrow-right transition-transform duration-300 group-hover:translate-x-1"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Right Column Card -->
+        <div
+          class="group rounded-3xl border border-slate-200 bg-gradient-to-br from-white/80 to-slate-50/80 p-8 shadow-xl backdrop-blur-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 lg:p-8"
+          data-aos="fade-left"
+          data-aos-delay="300"
+        >
+          <!-- Top Section -->
+          <div class="mb-6 flex items-start gap-4">
+            <div
+              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+            >
+              <i class="fa-solid fa-layer-group text-lg"></i>
+            </div>
+            <div>
+              <p class="text-xs font-semibold uppercase tracking-widest text-[#5f6368]">Current focus</p>
+              <p class="text-lg font-bold text-[#202124] leading-snug">
+                Information Systems <span class="text-slate-300">|</span> Business Web Applications
+                <span class="text-slate-300">|</span> Digital Products
+              </p>
+            </div>
+          </div>
+
+          <!-- Stack & Features Section -->
+          <div class="space-y-4">
+            <!-- Stack Card -->
+            <div
+              class="rounded-2xl border border-slate-200 bg-white/50 p-4 transition-all duration-300 hover:bg-white hover:border-[#4285F4]/30 hover:shadow-md"
+            >
+              <div class="flex items-center justify-between gap-3">
+                <div>
+                  <p class="text-xs font-semibold uppercase tracking-widest text-[#5f6368]">Tech Stack</p>
+                  <p class="text-base font-bold text-[#202124]">
+                    Laravel <span class="text-slate-300">|</span> CodeIgniter <span class="text-slate-300">|</span> PHP
+                    <span class="text-slate-300">|</span> JavaScript <span class="text-slate-300">|</span> MySQL
+                  </p>
+                </div>
+                <span
+                  class="rounded-full bg-gradient-to-r from-[#4285F4]/20 to-[#4285F4]/10 px-3 py-1.5 text-sm font-semibold text-[#4285F4] whitespace-nowrap"
+                  >Full Stack</span
+                >
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="space-y-2.5">
+              <div
+                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#34a853]/30 group/item"
+              >
+                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
+                  >Responsive & User-Friendly Applications</span
+                >
+                <span class="rounded-full bg-[#34a853]/20 px-3 py-1 text-[#34a853] font-bold text-sm">✓</span>
+              </div>
+              <div
+                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#4285F4]/30 group/item"
+              >
+                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
+                  >Clean & Maintainable Code</span
+                >
+                <span class="rounded-full bg-[#4285F4]/20 px-3 py-1 text-[#4285F4] font-bold text-sm">✓</span>
+              </div>
+              <div
+                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#ea4335]/30 group/item"
+              >
+                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
+                  >Deployment, Domain & Hosting Management</span
+                >
+                <span class="rounded-full bg-[#ea4335]/20 px-3 py-1 text-[#ea4335] font-bold text-sm">✓</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="bg-slate-50 px-4 py-20 sm:px-6 lg:px-8">
+      <div
+        class="mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm"
+        data-aos="fade-up"
+      >
+        <div class="grid lg:grid-cols-[1.05fr_0.95fr]">
+          <div class="relative bg-gradient-to-br from-[#4285F4]/10 via-white to-[#34a853]/10 p-8 sm:p-10 lg:p-14">
+            <div class="absolute right-0 top-0 h-32 w-32 rounded-full bg-[#fbbc05]/20 blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 h-28 w-28 rounded-full bg-[#ea4335]/10 blur-3xl"></div>
+
+            <div class="relative z-10 text-center lg:text-left">
+              <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">About me</p>
+              <h2 class="mb-4 text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
+                Building Digital Solutions That Solve Real Problems
+              </h2>
+              <p class="mb-5 text-lg leading-relaxed text-[#5f6368]">
+                I'm Rizal Efendi, a Full Stack Web Developer and Information Systems graduate from Indonesia. I
+                specialize in designing and developing modern web applications that are secure, scalable, and easy to
+                maintain.
+              </p>
+              <p class="mb-8 text-base leading-relaxed text-[#5f6368]">
+                Throughout my academic journey, freelance projects, and organizational experiences, I have built
+                information systems, business applications, and custom web solutions using Laravel, CodeIgniter, PHP,
+                JavaScript, and MySQL. Beyond application development, I also have hands-on experience managing web
+                hosting, domain configuration, Cloudflare integration, and deployment processes.
+              </p>
+
+              <div class="flex flex-wrap justify-center gap-3 lg:justify-start">
+                <span
+                  class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-[#202124] shadow-sm"
+                >
+                  Full Stack Development
+                </span>
+                <span
+                  class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-[#202124] shadow-sm"
+                >
+                  Information Systems
+                </span>
+                <span
+                  class="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-[#202124] shadow-sm"
+                >
+                  Deployment & Hosting
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-slate-50 p-8 sm:p-10 lg:p-14">
+            <div class="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+              <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div class="flex items-center justify-center lg:justify-start">
+                  <div class="relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#4285F4]/20 shadow-lg">
+                    <img src="assets/images/John-Doe.jpg" alt="Rizal Efendi" class="h-full w-full object-cover" />
+                  </div>
+                </div>
+
+                <div
+                  class="rounded-2xl border border-slate-200 bg-gradient-to-br from-[#4285F4]/10 to-[#34a853]/10 p-4 text-sm text-[#5f6368] shadow-sm"
+                >
+                  <p class="font-semibold text-[#202124]">Motivasi sederhana</p>
+                  <p class="mt-1 leading-relaxed">
+                    “Bekerja dengan fokus, membangun dengan hati, dan terus berkembang satu langkah demi satu langkah.”
+                  </p>
+                </div>
+              </div>
+
+              <div class="mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+                <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[#4285F4]">Core strengths</p>
+                <div class="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
+                    <span class="font-semibold text-[#202124]">Backend</span>
+                    <p class="mt-1">Laravel, CodeIgniter, PHP</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
+                    <span class="font-semibold text-[#202124]">Frontend</span>
+                    <p class="mt-1">HTML, CSS, JS, Tailwind</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
+                    <span class="font-semibold text-[#202124]">Database</span>
+                    <p class="mt-1">MySQL, structured systems</p>
+                  </div>
+                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
+                    <span class="font-semibold text-[#202124]">Ops</span>
+                    <p class="mt-1">Hosting, domain, Cloudflare</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex justify-center">
+                <a
+                  href="#contact"
+                  class="inline-flex rounded-full bg-[#4285F4] px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#3367d6] hover:shadow-md"
+                >
+                  Let’s Work Together
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-white px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Tech stack</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
+            Tools I use to build with clarity.
+          </h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            A practical stack for secure, scalable, and maintainable web solutions.
+          </p>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#4285F4]/50"
+            data-aos="zoom-in"
+          >
+            <div
+              class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#4285F4]/10 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#4285F4]/20"
+            >
+              <i class="fa-solid fa-code text-xl"></i>
+            </div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Frontend</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block text-sm font-medium text-[#202124] animate-fade-in">HTML5</span>
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.1s"
+                >CSS3</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.2s"
+                >JavaScript</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.3s"
+                >Tailwind CSS</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.4s"
+                >Bootstrap</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#34a853]/50"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
+            <div
+              class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#34a853]/10 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#34a853]/20"
+            >
+              <i class="fa-solid fa-server text-xl"></i>
+            </div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Backend</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block text-sm font-medium text-[#202124] animate-fade-in">PHP</span>
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.1s"
+                >Laravel</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.2s"
+                >CodeIgniter</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#fbbc05]/50"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div
+              class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#fbbc05]/10 text-[#fbbc05] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#fbbc05]/20"
+            >
+              <i class="fa-solid fa-database text-xl"></i>
+            </div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Database</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block text-sm font-medium text-[#202124] animate-fade-in">MySQL</span>
+            </div>
+          </div>
+
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#ea4335]/50"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+          >
+            <div
+              class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#ea4335]/10 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#ea4335]/20"
+            >
+              <i class="fa-solid fa-cloud text-xl"></i>
+            </div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">DevOps & Deployment</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block text-sm font-medium text-[#202124] animate-fade-in">Cloudflare</span>
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.1s"
+                >cPanel</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.2s"
+                >Linux</span
+              >
+            </div>
+          </div>
+
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#4285F4]/50"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <div
+              class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-[#4285F4]/10 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#4285F4]/20"
+            >
+              <i class="fa-solid fa-screwdriver-wrench text-xl"></i>
+            </div>
+            <p class="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Tools</p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block text-sm font-medium text-[#202124] animate-fade-in">Git</span>
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.1s"
+                >GitHub</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.2s"
+                >VS Code</span
+              >
+              <span class="text-slate-300">|</span>
+              <span
+                class="inline-block text-sm font-medium text-[#202124] animate-fade-in"
+                style="animation-delay: 0.3s"
+                >Figma (Basic)</span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Resume Section -->
+    <section id="resume" class="bg-white px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Resume</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">A concise look at my background.</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            Focused on building practical digital solutions with strong fundamentals and modern workflows.
+          </p>
+        </div>
+
+        <div class="grid gap-10 lg:grid-cols-2">
+          <!-- Education Column -->
+          <div class="space-y-6" data-aos="fade-right">
+            <div class="mb-8 flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4285F4] text-white">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <h3 class="text-2xl font-semibold text-[#202124]">Education</h3>
+            </div>
+
+            <div
+              class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#4285F4]/50"
+            >
+              <div class="flex gap-4">
+                <div
+                  class="flex h-12 w-12 min-w-fit items-center justify-center rounded-full border-2 border-[#4285F4] bg-[#4285F4]/10 text-[#4285F4]"
+                >
+                  <i class="fa-solid fa-book text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-[#202124]">Bachelor of Information Systems</h4>
+                  <p class="mb-3 text-sm font-medium text-[#4285F4]">STIKOM Tunas Bangsa Pematangsiantar</p>
+                  <p class="mb-3 text-sm font-semibold text-[#5f6368]">2022 — 2026</p>
+                  <p class="text-base leading-relaxed text-[#5f6368]">
+                    Focused on software engineering, database systems, web development, and information systems.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#34a853]/50"
+            >
+              <div class="flex gap-4">
+                <div
+                  class="flex h-12 w-12 min-w-fit items-center justify-center rounded-full border-2 border-[#34a853] bg-[#34a853]/10 text-[#34a853]"
+                >
+                  <i class="fa-solid fa-school text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-[#202124]">Senior High School – Science (IPA)</h4>
+                  <p class="mb-3 text-sm font-medium text-[#34a853]">SMA Negeri 1 Sidamanik</p>
+                  <p class="mb-3 text-sm font-semibold text-[#5f6368]">2019 — 2022</p>
+                  <p class="text-base leading-relaxed text-[#5f6368]">
+                    Completed the Science (IPA) program with a strong foundation in mathematics, physics, chemistry, and
+                    computer literacy, fostering analytical thinking and problem-solving skills.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Experience Column -->
+          <div class="space-y-6" data-aos="fade-left">
+            <div class="mb-8 flex items-center gap-3">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-[#34a853] text-white">
+                <i class="fa-solid fa-briefcase"></i>
+              </div>
+              <h3 class="text-2xl font-semibold text-[#202124]">Experience</h3>
+            </div>
+
+            <!-- Experience Item 1 -->
+            <div
+              class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#34a853]/50"
+            >
+              <div class="flex gap-4">
+                <div
+                  class="flex h-12 w-12 min-w-fit items-center justify-center rounded-full border-2 border-[#34a853] bg-[#34a853]/10 text-[#34a853]"
+                >
+                  <i class="fa-solid fa-code text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-[#202124]">Freelance Web Developer</h4>
+                  <p class="mb-3 text-sm font-medium text-[#34a853]">Independent Projects</p>
+                  <p class="text-base leading-relaxed text-[#5f6368]">
+                    Developed custom web applications tailored to client requirements, including a web-based cashier
+                    system for PT. Semoga Jaya.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience Item 2 -->
+            <div
+              class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#ea4335]/50"
+            >
+              <div class="flex gap-4">
+                <div
+                  class="flex h-12 w-12 min-w-fit items-center justify-center rounded-full border-2 border-[#ea4335] bg-[#ea4335]/10 text-[#ea4335]"
+                >
+                  <i class="fa-solid fa-laptop text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-[#202124]">Academic Project Developer</h4>
+                  <p class="mb-3 text-sm font-medium text-[#ea4335]">University Projects</p>
+                  <p class="text-base leading-relaxed text-[#5f6368]">
+                    Designed and developed academic information systems, document archiving platforms, and OBE
+                    applications.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience Item 3 -->
+            <div
+              class="group rounded-[28px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:border-[#fbbc05]/50"
+            >
+              <div class="flex gap-4">
+                <div
+                  class="flex h-12 w-12 min-w-fit items-center justify-center rounded-full border-2 border-[#fbbc05] bg-[#fbbc05]/10 text-[#fbbc05]"
+                >
+                  <i class="fa-solid fa-users text-lg"></i>
+                </div>
+                <div class="flex-1">
+                  <h4 class="text-lg font-semibold text-[#202124]">Vice Chairman — ROHIS Organization</h4>
+                  <p class="mb-3 text-sm font-medium text-[#fbbc05]">Community Organization</p>
+                  <p class="text-base leading-relaxed text-[#5f6368]">
+                    Coordinated programs, supported leadership activities, and contributed to collaborative team
+                    initiatives.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="bg-gradient-to-b from-white via-slate-50/30 to-white px-4 py-20 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Projects</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
+            Selected work with a focus on clarity and performance.
+          </h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            A selection of systems and platforms built to support real users, workflows, and business needs.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <!-- Project 1: SIPADAN -->
+          <div
+            class="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#4285F4]/30"
+            data-aos="zoom-in-up"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1585079542156-2755d9c8a094?auto=format&fit=crop&w=800&q=80"
+                alt="SIPADAN"
+                class="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <!-- Overlay -->
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#202124]/70 via-[#202124]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              ></div>
+              <!-- Demo Button -->
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100"
+              >
+                <a
+                  href="#"
+                  class="group/btn relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#202124] shadow-lg transition-all duration-300 hover:bg-[#4285F4] hover:text-white hover:shadow-xl hover:-translate-y-1"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                  <span>View Demo</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 text-xl font-bold text-[#202124]">SIPADAN</h3>
+              <p class="mb-4 text-sm font-medium text-[#4285F4]">Document Archive Management System</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#4285F4]/10 px-3 py-1 text-xs font-medium text-[#4285F4]"
+                  >CodeIgniter</span
+                >
+                <span class="rounded-full bg-[#34a853]/10 px-3 py-1 text-xs font-medium text-[#34a853]">Bootstrap</span>
+                <span class="rounded-full bg-[#fbbc05]/10 px-3 py-1 text-xs font-medium text-[#fbbc05]">MySQL</span>
+              </div>
+              <p class="text-sm leading-relaxed text-[#5f6368]">
+                A web-based document archiving system designed to digitize manual document management and improve
+                efficiency.
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 2: E-Tugas -->
+          <div
+            class="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#34a853]/30"
+            data-aos="zoom-in-up"
+            data-aos-delay="100"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80"
+                alt="E-Tugas"
+                class="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#202124]/70 via-[#202124]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              ></div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100"
+              >
+                <a
+                  href="#"
+                  class="group/btn relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#202124] shadow-lg transition-all duration-300 hover:bg-[#34a853] hover:text-white hover:shadow-xl hover:-translate-y-1"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                  <span>View Demo</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 text-xl font-bold text-[#202124]">E-Tugas</h3>
+              <p class="mb-4 text-sm font-medium text-[#34a853]">Online Assignment Management System</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#4285F4]/10 px-3 py-1 text-xs font-medium text-[#4285F4]"
+                  >CodeIgniter</span
+                >
+                <span class="rounded-full bg-[#34a853]/10 px-3 py-1 text-xs font-medium text-[#34a853]"
+                  >Tailwind CSS</span
+                >
+                <span class="rounded-full bg-[#fbbc05]/10 px-3 py-1 text-xs font-medium text-[#fbbc05]">MySQL</span>
+              </div>
+              <p class="text-sm leading-relaxed text-[#5f6368]">
+                An online learning platform inspired by Google Classroom for managing courses, assignments, and grading.
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 3: E-Kasir -->
+          <div
+            class="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#4285F4]/30"
+            data-aos="zoom-in-up"
+            data-aos-delay="200"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=800&q=80"
+                alt="E-Kasir"
+                class="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#202124]/70 via-[#202124]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              ></div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100"
+              >
+                <a
+                  href="#"
+                  class="group/btn relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#202124] shadow-lg transition-all duration-300 hover:bg-[#4285F4] hover:text-white hover:shadow-xl hover:-translate-y-1"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                  <span>View Demo</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 text-xl font-bold text-[#202124]">E-Kasir</h3>
+              <p class="mb-4 text-sm font-medium text-[#4285F4]">Point of Sale Application</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#4285F4]/10 px-3 py-1 text-xs font-medium text-[#4285F4]">Laravel</span>
+                <span class="rounded-full bg-[#34a853]/10 px-3 py-1 text-xs font-medium text-[#34a853]">Vue.js</span>
+                <span class="rounded-full bg-[#fbbc05]/10 px-3 py-1 text-xs font-medium text-[#fbbc05]">MySQL</span>
+              </div>
+              <p class="text-sm leading-relaxed text-[#5f6368]">
+                A modern POS application with inventory management, sales transactions, customer records, and reports.
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 4: Script MLBB -->
+          <div
+            class="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#fbbc05]/30"
+            data-aos="zoom-in-up"
+            data-aos-delay="300"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=800&q=80"
+                alt="Script MLBB"
+                class="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#202124]/70 via-[#202124]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              ></div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100"
+              >
+                <a
+                  href="#"
+                  class="group/btn relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#202124] shadow-lg transition-all duration-300 hover:bg-[#fbbc05] hover:text-white hover:shadow-xl hover:-translate-y-1"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                  <span>View Demo</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 text-xl font-bold text-[#202124]">Script MLBB</h3>
+              <p class="mb-4 text-sm font-medium text-[#fbbc05]">Technology Blog & Digital Platform</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#4285F4]/10 px-3 py-1 text-xs font-medium text-[#4285F4]">Blogger</span>
+                <span class="rounded-full bg-[#34a853]/10 px-3 py-1 text-xs font-medium text-[#34a853]">HTML</span>
+                <span class="rounded-full bg-[#fbbc05]/10 px-3 py-1 text-xs font-medium text-[#fbbc05]">SEO</span>
+              </div>
+              <p class="text-sm leading-relaxed text-[#5f6368]">
+                A technology-focused blog sharing tutorials, gaming content, website customization guides, and digital
+                resources.
+              </p>
+            </div>
+          </div>
+
+          <!-- Project 5: Personal Landing Page -->
+          <div
+            class="group overflow-hidden rounded-[28px] border border-slate-200 bg-white shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#34a853]/30"
+            data-aos="zoom-in-up"
+            data-aos-delay="400"
+          >
+            <div class="relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80"
+                alt="Personal Landing Page"
+                class="h-56 w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-[#202124]/70 via-[#202124]/20 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              ></div>
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-0 transition-all duration-500 group-hover:opacity-100"
+              >
+                <a
+                  href="#"
+                  class="group/btn relative inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 font-semibold text-[#202124] shadow-lg transition-all duration-300 hover:bg-[#34a853] hover:text-white hover:shadow-xl hover:-translate-y-1"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                  <span>View Demo</span>
+                </a>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="mb-2 text-xl font-bold text-[#202124]">Personal Landing Page</h3>
+              <p class="mb-4 text-sm font-medium text-[#34a853]">Personal Portfolio Website</p>
+              <div class="mb-4 flex flex-wrap gap-2">
+                <span class="rounded-full bg-[#4285F4]/10 px-3 py-1 text-xs font-medium text-[#4285F4]">WordPress</span>
+                <span class="rounded-full bg-[#34a853]/10 px-3 py-1 text-xs font-medium text-[#34a853]">PHP</span>
+              </div>
+              <p class="text-sm leading-relaxed text-[#5f6368]">
+                A modern personal website showcasing professional experience, technical skills, and portfolio projects.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section
+      id="services"
+      class="bg-gradient-to-b from-slate-50/50 via-white to-slate-50/50 px-4 py-20 sm:px-6 lg:px-8"
+    >
+      <div class="mx-auto max-w-7xl">
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Services</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">What I enjoy building most.</h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            Practical development that balances aesthetics, reliability, and long-term maintainability.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+          <!-- Service 1: Information System -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#4285F4]/30"
+            data-aos="zoom-in"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+            >
+              <i class="fas fa-sitemap text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#4285F4]">
+              Information System Development
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Developing custom information systems tailored to educational institutions, organizations, and business
+              workflows.
+            </p>
+          </div>
+
+          <!-- Service 2: Company Profile -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#34a853]/30"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
+            >
+              <i class="fas fa-building text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#34a853]">
+              Company Profile Website
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Creating professional websites that strengthen business identity and establish a strong online presence.
+            </p>
+          </div>
+
+          <!-- Service 3: Landing Page -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#ea4335]/30"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
+            >
+              <i class="fas fa-bullhorn text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#ea4335]">
+              Landing Page Development
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Building responsive, SEO-friendly landing pages designed to improve engagement and conversion.
+            </p>
+          </div>
+
+          <!-- Service 4: Custom Web Application -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#4285F4]/30"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+            >
+              <i class="fas fa-laptop-code text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#4285F4]">
+              Custom Web Application
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Developing scalable web applications using Laravel, CodeIgniter, PHP, and modern web technologies.
+            </p>
+          </div>
+
+          <!-- Service 5: Website Maintenance -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#34a853]/30"
+            data-aos="zoom-in"
+            data-aos-delay="400"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
+            >
+              <i class="fas fa-wrench text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#34a853]">
+              Website Maintenance
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Providing bug fixing, feature enhancements, security updates, performance optimization, and support.
+            </p>
+          </div>
+
+          <!-- Service 6: Deployment & Hosting -->
+          <div
+            class="group rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#ea4335]/30"
+            data-aos="zoom-in"
+            data-aos-delay="500"
+          >
+            <div
+              class="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
+            >
+              <i class="fas fa-globe text-2xl"></i>
+            </div>
+            <h3 class="mb-3 text-xl font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#ea4335]">
+              Deployment & Hosting Setup
+            </h3>
+            <p class="text-base leading-relaxed text-[#5f6368]">
+              Deploying websites to production servers, configuring domains, Cloudflare, SSL, and cPanel hosting.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why Choose Me Section -->
+    <section class="bg-gradient-to-b from-white via-slate-50/30 to-white px-4 py-20 sm:px-6 lg:px-8">
+      <div
+        class="mx-auto max-w-7xl rounded-[32px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-500 hover:shadow-lg sm:p-10 lg:p-14"
+      >
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Why choose me</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
+            Reliable, thoughtful, and growth-focused development.
+          </h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            Building with precision, creativity, and your success in mind.
+          </p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+          <!-- Why 1: Clean Code -->
+          <div
+            class="group relative rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#4285F4]/30"
+            data-aos="zoom-in"
+          >
+            <div
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+            >
+              <i class="fas fa-code text-xl"></i>
+            </div>
+            <h3 class="mb-3 text-lg font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#4285F4]">
+              Clean Code
+            </h3>
+            <p class="text-sm leading-relaxed text-[#5f6368]">
+              I write maintainable, well-structured, and scalable code following best development practices.
+            </p>
+          </div>
+
+          <!-- Why 2: Problem Solver -->
+          <div
+            class="group relative rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#34a853]/30"
+            data-aos="zoom-in"
+            data-aos-delay="100"
+          >
+            <div
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
+            >
+              <i class="fas fa-lightbulb text-xl"></i>
+            </div>
+            <h3 class="mb-3 text-lg font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#34a853]">
+              Problem Solver
+            </h3>
+            <p class="text-sm leading-relaxed text-[#5f6368]">
+              I focus on understanding business needs and transforming ideas into practical digital solutions.
+            </p>
+          </div>
+
+          <!-- Why 3: Responsive Design -->
+          <div
+            class="group relative rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#ea4335]/30"
+            data-aos="zoom-in"
+            data-aos-delay="200"
+          >
+            <div
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
+            >
+              <i class="fas fa-mobile-alt text-xl"></i>
+            </div>
+            <h3 class="mb-3 text-lg font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#ea4335]">
+              Responsive Design
+            </h3>
+            <p class="text-sm leading-relaxed text-[#5f6368]">
+              Every project is optimized to deliver a seamless experience across desktop, tablet, and mobile devices.
+            </p>
+          </div>
+
+          <!-- Why 4: Reliable Support -->
+          <div
+            class="group relative rounded-[28px] border border-slate-200 bg-white p-8 shadow-sm transition-all duration-500 hover:-translate-y-2 hover:shadow-xl hover:border-[#fbbc05]/30"
+            data-aos="zoom-in"
+            data-aos-delay="300"
+          >
+            <div
+              class="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#fbbc05]/20 to-[#fbbc05]/5 text-[#fbbc05] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#fbbc05]/20"
+            >
+              <i class="fas fa-handshake text-xl"></i>
+            </div>
+            <h3 class="mb-3 text-lg font-bold text-[#202124] transition-colors duration-300 group-hover:text-[#fbbc05]">
+              Reliable Support
+            </h3>
+            <p class="text-sm leading-relaxed text-[#5f6368]">
+              I believe communication, consistency, and long-term support are essential to every successful project.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="bg-gradient-to-b from-white via-slate-50/30 to-white px-4 py-20 sm:px-6 lg:px-8">
+      <div
+        class="mx-auto max-w-7xl rounded-[32px] border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-8 shadow-sm transition-all duration-500 hover:shadow-lg sm:p-10 lg:p-14"
+      >
+        <div class="mb-12 text-center" data-aos="fade-up">
+          <p class="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-[#4285F4]">Contact</p>
+          <h2 class="text-3xl font-bold tracking-tight text-[#202124] sm:text-4xl">
+            Let's Build Something Great Together
+          </h2>
+          <p class="mx-auto mt-4 max-w-2xl text-lg text-[#5f6368]">
+            Whether you need a business website, information system, or custom web application, I'm ready to help bring
+            your ideas to life.
+          </p>
+        </div>
+
+        <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+          <!-- Left Column: Contact Info -->
+          <div
+            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm transition-all duration-500 hover:shadow-md"
+            data-aos="fade-right"
+          >
+            <h3 class="mb-6 text-2xl font-bold text-[#202124]">Let's connect</h3>
+            <ul class="space-y-3">
+              <!-- Email -->
+              <li>
+                <a
+                  href="mailto:rizal@scriptmlbb.com"
+                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#4285F4]/30 hover:shadow-md"
+                >
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+                  >
+                    <i class="fa-solid fa-envelope text-lg"></i>
+                  </div>
+                  <span
+                    class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#4285F4]"
+                    >rizal@scriptmlbb.com</span
+                  >
+                </a>
+              </li>
+
+              <!-- Website -->
+              <li>
+                <a
+                  href="https://rizal.scriptmlbb.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#34a853]/30 hover:shadow-md"
+                >
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
+                  >
+                    <i class="fa-solid fa-globe text-lg"></i>
+                  </div>
+                  <div class="flex-1">
+                    <span
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#34a853] flex items-center justify-between"
+                    >
+                      rizal.scriptmlbb.com
+                      <i
+                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      ></i>
+                    </span>
+                  </div>
+                </a>
+              </li>
+
+              <!-- GitHub -->
+              <li>
+                <a
+                  href="https://github.com/rizal-x415ap"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#ea4335]/30 hover:shadow-md"
+                >
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
+                  >
+                    <i class="fa-brands fa-github text-lg"></i>
+                  </div>
+                  <div class="flex-1">
+                    <span
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#ea4335] flex items-center justify-between"
+                    >
+                      github.com/rizal-x415ap
+                      <i
+                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      ></i>
+                    </span>
+                  </div>
+                </a>
+              </li>
+
+              <!-- LinkedIn -->
+              <li>
+                <a
+                  href="https://linkedin.com/in/rizalefd_"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#fbbc05]/30 hover:shadow-md"
+                >
+                  <div
+                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#fbbc05]/20 to-[#fbbc05]/5 text-[#fbbc05] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#fbbc05]/20"
+                  >
+                    <i class="fa-brands fa-linkedin-in text-lg"></i>
+                  </div>
+                  <div class="flex-1">
+                    <span
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#fbbc05] flex items-center justify-between"
+                    >
+                      linkedin.com/in/rizalefd_
+                      <i
+                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      ></i>
+                    </span>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Right Column: Contact Form -->
+          <div
+            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm transition-all duration-500 hover:shadow-md"
+            data-aos="fade-left"
+          >
+            <form class="space-y-6">
+              <div class="relative group">
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  placeholder=" "
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
+                />
+                <label
+                  for="name"
+                  class="absolute left-4 top-2.5 text-sm text-[#5f6368] transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#5f6368] peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-[#4285F4]"
+                  >Name</label
+                >
+              </div>
+              <div class="relative group">
+                <input
+                  type="email"
+                  id="email"
+                  required
+                  placeholder=" "
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
+                />
+                <label
+                  for="email"
+                  class="absolute left-4 top-2.5 text-sm text-[#5f6368] transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#5f6368] peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-[#4285F4]"
+                  >Email</label
+                >
+              </div>
+              <div class="relative group">
+                <textarea
+                  id="message"
+                  rows="5"
+                  required
+                  placeholder=" "
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300 resize-none"
+                ></textarea>
+                <label
+                  for="message"
+                  class="absolute left-4 top-2.5 text-sm text-[#5f6368] transition-all duration-300 peer-placeholder-shown:top-4 peer-placeholder-shown:text-base peer-placeholder-shown:text-[#5f6368] peer-focus:top-2.5 peer-focus:text-sm peer-focus:text-[#4285F4]"
+                  >Message</label
+                >
+              </div>
+              <button
+                type="submit"
+                class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-[#4285F4] to-[#4285F4] px-6 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+              >
+                <span class="relative z-10 flex items-center justify-center gap-2">
+                  Send Message
+                  <i
+                    class="fa-solid fa-paper-plane text-sm transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                  ></i>
+                </span>
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Section -->
+    <footer class="border-t border-slate-200 bg-white px-6 py-12 text-center text-[#5f6368]">
+      <div class="mx-auto max-w-xl">
+        <h2 class="mb-1 text-xl font-semibold text-[#202124]">Rizal Efendi</h2>
+        <p class="mb-4 text-sm">Full Stack Web Developer</p>
+        <div class="mb-6 flex items-center justify-center gap-5">
+          <a
+            href="mailto:rizal@scriptmlbb.com"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-[#4285F4]/10 text-[#4285F4] transition hover:scale-110"
+          >
+            <i class="fa-solid fa-envelope"></i>
+          </a>
+          <a
+            href="https://linkedin.com/in/rizalefd_"
+            target="_blank"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-[#34a853]/10 text-[#34a853] transition hover:scale-110"
+          >
+            <i class="fa-brands fa-linkedin-in"></i>
+          </a>
+          <a
+            href="https://github.com/rizal-x415ap"
+            target="_blank"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-[#ea4335]/10 text-[#ea4335] transition hover:scale-110"
+          >
+            <i class="fa-brands fa-github"></i>
+          </a>
+        </div>
+        <p class="text-xs text-[#5f6368]">
+          © 2026 Rizal Efendi. All rights reserved. Designed & Developed with ❤️ by Rizal Efendi.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Load libraries -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+    <script src="https://unpkg.com/lottie-web@5.7.4/build/player/lottie.min.js"></script>
+  </body>
+</html>
