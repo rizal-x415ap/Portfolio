@@ -13,12 +13,22 @@
       content="Rizal Efendi, Full Stack Web Developer, Laravel, CodeIgniter, PHP, JavaScript, MySQL, web development"
     />
     <meta name="author" content="Rizal Efendi" />
+    <meta property="og:title" content="Rizal Efendi | Full Stack Web Developer" />
+    <meta property="og:description" content="Building modern, reliable web applications with Laravel, CodeIgniter, PHP, JavaScript, MySQL, and deployment support." />
+    <meta property="og:image" content="assets/images/rizal.webp" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Rizal Efendi | Full Stack Web Developer" />
+    <meta name="twitter:description" content="Building modern, reliable web applications with Laravel, CodeIgniter, PHP, JavaScript, MySQL, and deployment support." />
+    <meta name="twitter:image" content="assets/images/rizal.webp" />
     <title>Rizal Efendi | Full Stack Web Developer</title>
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
+        darkMode: "class",
         theme: {
           extend: {
             colors: {
@@ -39,6 +49,16 @@
           },
         },
       };
+    </script>
+
+    <script>
+      (function () {
+        const savedTheme = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const isDark = savedTheme ? savedTheme === "dark" : prefersDark;
+        document.documentElement.classList.toggle("dark", isDark);
+        document.documentElement.style.colorScheme = isDark ? "dark" : "light";
+      })();
     </script>
 
     <!-- Google Fonts -->
@@ -66,11 +86,12 @@
     <script src="js/script.js"></script>
   </head>
 
-  <body class="bg-slate-50 text-[#202124] font-sans">
+  <body class="bg-slate-50 text-[#202124] font-sans transition-colors duration-300">
     <!-- Navbar -->
     <nav
-      x-data="{ open: false, activeSection: 'home' }"
+      x-data="{ open: false, activeSection: 'home', darkMode: false, toggleTheme() { this.darkMode = !this.darkMode; document.documentElement.classList.toggle('dark', this.darkMode); document.documentElement.style.colorScheme = this.darkMode ? 'dark' : 'light'; localStorage.setItem('theme', this.darkMode ? 'dark' : 'light'); }, initTheme() { const savedTheme = localStorage.getItem('theme'); const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches; this.darkMode = savedTheme ? savedTheme === 'dark' : prefersDark; document.documentElement.classList.toggle('dark', this.darkMode); document.documentElement.style.colorScheme = this.darkMode ? 'dark' : 'light'; } }"
       x-init="
+    initTheme();
     window.addEventListener('scroll', () => {
       const sections = ['home', 'about', 'skills','resume', 'projects', 'services', 'contact'];
       const scrollY = window.scrollY + 150;
@@ -87,7 +108,10 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <!-- Logo -->
-          <a href="#" class="text-lg md:text-3xl font-extrabold tracking-wide text-[#4285F4]"> Rizal Efendi </a>
+          <a href="#" class="flex items-center gap-3 text-lg md:text-3xl font-extrabold tracking-wide text-[#4285F4]">
+            <img src="assets/images/rizal.webp" alt="Foto profil Rizal Efendi" class="h-10 w-10 rounded-full object-cover border border-slate-200 shadow-sm" />
+            <span>Rizal Efendi</span>
+          </a>
 
           <!-- Desktop Navigation -->
           <div class="hidden md:flex items-center space-x-8 text-md font-medium">
@@ -110,18 +134,32 @@
             </template>
           </div>
 
-          <!-- Resume Button (Desktop) -->
-          <div class="hidden md:flex">
-            <a
-              href="#resume"
-              class="rounded-full bg-[#4285F4] px-5 py-2 font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#3367d6] hover:shadow-md"
+          <div class="flex items-center gap-2 md:gap-3">
+            <button
+              type="button"
+              @click="toggleTheme()"
+              class="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white/80 text-[#202124] shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+              :title="darkMode ? 'Switch to light mode' : 'Switch to dark mode'"
             >
-              Resume
-            </a>
-          </div>
+              <i x-show="!darkMode" class="fa-solid fa-sun text-sm"></i>
+              <i x-show="darkMode" x-cloak class="fa-solid fa-moon text-sm"></i>
+            </button>
 
-          <!-- Mobile Menu Button -->
-          <div class="md:hidden flex items-center">
+            <!-- Resume Button (Desktop) -->
+            <div class="hidden md:flex">
+              <a
+                href="assets/Rizal_Efendi_Resume.pdf"
+                class="inline-flex items-center gap-2 rounded-full bg-[#4285F4] px-5 py-2 font-semibold text-white shadow-sm transition-all duration-300 hover:scale-105 hover:bg-[#3367d6] hover:shadow-md"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <i class="fa-solid fa-file-lines"></i>
+                Resume
+              </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden flex items-center">
             <button @click="open = !open" class="focus:outline-none">
               <!-- Menu Icon -->
               <svg
@@ -167,15 +205,20 @@
             :href="'#' + link.toLowerCase()"
             :class="activeSection === link.toLowerCase() ? 'text-[#4285F4] bg-[#4285F4]/10' : 'text-[#202124] hover:bg-slate-50'"
             class="mb-2 block rounded-full px-4 py-2 transition duration-300"
+            @click="open = false"
             x-text="link"
           ></a>
         </template>
 
         <!-- Resume Button (Mobile) -->
         <a
-          href="#resume"
-          class="mt-3 inline-block rounded-full bg-[#4285F4] px-4 py-2 text-white shadow-sm transition duration-300 hover:bg-[#3367d6] hover:shadow-md"
+          href="assets/Rizal_Efendi_Resume.pdf"
+          class="mt-3 inline-flex items-center justify-center gap-2 rounded-full bg-[#4285F4] px-4 py-2 text-white shadow-sm transition duration-300 hover:bg-[#3367d6] hover:shadow-md"
+          @click="open = false"
+          target="_blank"
+          rel="noopener noreferrer"
         >
+          <i class="fa-solid fa-file-lines"></i>
           Resume
         </a>
       </div>
@@ -263,82 +306,56 @@
 
         <!-- Right Column Card -->
         <div
-          class="group rounded-3xl border border-slate-200 bg-gradient-to-br from-white/80 to-slate-50/80 p-8 shadow-xl backdrop-blur-sm transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 lg:p-8"
-          data-aos="fade-left"
-          data-aos-delay="300"
+          class="relative overflow-hidden group rounded-[32px] border border-slate-200 bg-gradient-to-br from-white/90 to-slate-50 p-6 shadow-xl backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl lg:p-8"
+          data-aos="fade-up"
+          data-aos-duration="900"
         >
-          <!-- Top Section -->
-          <div class="mb-6 flex items-start gap-4">
-            <div
-              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
-            >
-              <i class="fa-solid fa-layer-group text-lg"></i>
-            </div>
-            <div>
-              <p class="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#5f6368]">Current focus</p>
-              <p class="text-sm sm:text-base font-semibold text-[#202124] leading-snug whitespace-normal">
-                <span class="block sm:inline">Information Systems</span>
-                <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                <span class="block sm:inline">Business Web Applications</span>
-                <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                <span class="block sm:inline">Digital Products</span>
-              </p>
-            </div>
-          </div>
+          <span class="pointer-events-none absolute -right-8 top-4 h-32 w-32 rounded-full bg-[#4285F4]/10 blur-3xl"></span>
+          <span class="pointer-events-none absolute -left-10 bottom-10 h-28 w-28 rounded-full bg-[#34a853]/10 blur-3xl"></span>
 
-          <!-- Stack & Features Section -->
-          <div class="space-y-4">
-            <!-- Stack Card -->
-            <div
-              class="rounded-2xl border border-slate-200 bg-white/50 p-4 transition-all duration-300 hover:bg-white hover:border-[#4285F4]/30 hover:shadow-md"
-            >
-              <div class="flex items-center justify-between gap-3">
-                <div>
-                  <p class="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[#5f6368]">Tech Stack</p>
-                  <p class="text-sm sm:text-base font-semibold text-[#202124] leading-snug whitespace-normal">
-                    <span class="block sm:inline">Laravel</span>
-                    <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                    <span class="block sm:inline">CodeIgniter</span>
-                    <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                    <span class="block sm:inline">PHP</span>
-                    <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                    <span class="block sm:inline">JavaScript</span>
-                    <span class="block sm:inline text-slate-300 sm:mx-2">|</span>
-                    <span class="block sm:inline">MySQL</span>
-                  </p>
+          <div class="space-y-4 relative z-10">
+            <div class="rounded-[28px] border border-slate-200 bg-slate-50/90 p-5 shadow-sm transition-all duration-300 group-hover:-translate-y-1">
+              <div class="flex items-center gap-3">
+                <div class="flex h-12 w-12 items-center justify-center rounded-3xl bg-gradient-to-br from-[#4285F4]/20 to-[#34a853]/10 text-[#4285F4] shadow-lg shadow-[#4285F4]/10">
+                  <i class="fa-solid fa-compass text-lg"></i>
                 </div>
-                <span
-                  class="rounded-full bg-gradient-to-r from-[#4285F4]/20 to-[#4285F4]/10 px-2.5 py-1 text-[0.72rem] font-semibold text-[#4285F4] whitespace-nowrap sm:px-3 sm:py-1.5 sm:text-sm"
-                  >Full Stack</span
-                >
+                <div>
+                  <p class="text-[0.75rem] font-semibold uppercase tracking-[0.3em] text-[#4285F4]">Current focus</p>
+                  <div class="mt-2 h-1.5 w-24 rounded-full bg-gradient-to-r from-[#4285F4] to-[#34a853] animate-pulse"></div>
+                </div>
               </div>
             </div>
 
-            <!-- Features List -->
-            <div class="space-y-2.5">
-              <div
-                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#34a853]/30 group/item"
-              >
-                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
-                  >Responsive & User-Friendly Applications</span
-                >
-                <span class="rounded-full bg-[#34a853]/20 px-3 py-1 text-[#34a853] font-bold text-sm">✓</span>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div class="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1">
+                <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#5f6368]">Focus areas</p>
+                <div class="flex flex-wrap gap-2 text-sm font-semibold text-[#202124]">
+                  <span class="rounded-full border border-[#4285F4]/20 bg-[#4285F4]/5 px-3 py-2">Information Systems</span>
+                  <span class="rounded-full border border-[#4285F4]/20 bg-[#4285F4]/5 px-3 py-2">Business Web Applications</span>
+                  <span class="rounded-full border border-[#4285F4]/20 bg-[#4285F4]/5 px-3 py-2">Digital Products</span>
+                </div>
               </div>
-              <div
-                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#4285F4]/30 group/item"
-              >
-                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
-                  >Clean & Maintainable Code</span
-                >
-                <span class="rounded-full bg-[#4285F4]/20 px-3 py-1 text-[#4285F4] font-bold text-sm">✓</span>
+
+              <div class="rounded-[28px] border border-slate-200 bg-white p-5 shadow-sm transition-all duration-300 hover:-translate-y-1">
+                <p class="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-[#5f6368]">Tech stack</p>
+                <div class="flex flex-wrap gap-2 text-sm font-semibold text-[#202124]">
+                  <span class="rounded-full border border-[#202124]/10 bg-slate-100 px-3 py-2">Laravel</span>
+                  <span class="rounded-full border border-[#202124]/10 bg-slate-100 px-3 py-2">CodeIgniter</span>
+                  <span class="rounded-full border border-[#202124]/10 bg-slate-100 px-3 py-2">PHP</span>
+                  <span class="rounded-full border border-[#202124]/10 bg-slate-100 px-3 py-2">JavaScript</span>
+                  <span class="rounded-full border border-[#202124]/10 bg-slate-100 px-3 py-2">MySQL</span>
+                </div>
               </div>
-              <div
-                class="flex items-center justify-between rounded-xl border border-slate-200 bg-white/40 px-4 py-3 transition-all duration-300 hover:bg-white hover:shadow-md hover:border-[#ea4335]/30 group/item"
-              >
-                <span class="text-sm font-medium text-[#5f6368] group-hover/item:text-[#202124]"
-                  >Deployment, Domain & Hosting Management</span
-                >
-                <span class="rounded-full bg-[#ea4335]/20 px-3 py-1 text-[#ea4335] font-bold text-sm">✓</span>
+            </div>
+
+            <div class="rounded-[28px] border border-slate-200 bg-white p-5 text-sm text-[#202124] shadow-sm transition-all duration-300 hover:-translate-y-1">
+              <div class="grid gap-3 text-sm text-[#5f6368]">
+                <p class="font-semibold text-[#202124]">What I deliver:</p>
+                <p>Modern responsive interfaces, clean maintainable code, and production-ready deployment support.</p>
+                <p class="inline-flex flex-wrap items-center gap-2 text-[#4285F4]">
+                  <span class="inline-flex h-2.5 w-2.5 rounded-full bg-[#4285F4]"></span>
+                  <span>Mobile + desktop ready</span>
+                </p>
               </div>
             </div>
           </div>
@@ -399,11 +416,7 @@
               <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div class="flex items-center justify-center lg:justify-start">
                   <div class="relative h-28 w-28 overflow-hidden rounded-full border-4 border-[#4285F4]/20 shadow-lg">
-                    <img
-                      src="https://blogger.googleusercontent.com/img/proxy/AVvXsEiqbTajx0a63v3ioqLfdvaSpu0sAY0FoOHzM8xySR_E7nXytOhjrZFAzNlylC2dgytOQEVfVaYpqUqS7hTdEAYvwDdzN-NFMbe4SIlDvUnOIxxiCKP2_2yokvrXkdQXilFVe144A3ZuPe794MIoi13n2UcrAESknxL9Tg9er3VASgTtHw5jXopLf21e1vzit7I77TdVEnle9GhWtaetDr-zRT4mfVNdTbzDHXTeTNsh_aA3E4DfU7kfI8Z-lXeXyPurCME-6I1qZcyXChdqEpI5cG6zENg4HD2vGJcbDcXcLOBcxEvD-rCmNWzxAbJ_zXJKyQITMcHx=s1600"
-                      alt="Rizal Efendi"
-                      class="h-full w-full object-cover"
-                    />
+                    <img src="/assets/images/rizal_OpenTo.webp" alt="Rizal Efendi" class="h-full w-full object-cover" />
                   </div>
                 </div>
 
@@ -416,23 +429,23 @@
                 </div>
               </div>
 
-              <div class="mb-6 rounded-2xl border border-slate-200 bg-slate-50 p-4">
+              <div class="mb-6 rounded-2xl border border-slate-200 bg-white/60 p-4 backdrop-blur-xl shadow-sm shadow-slate-300/30 dark:bg-slate-950/40 dark:shadow-slate-950/50">
                 <p class="text-sm font-semibold uppercase tracking-[0.2em] text-[#4285F4]">Core strengths</p>
                 <div class="mt-4 grid gap-3 sm:grid-cols-2">
-                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
-                    <span class="font-semibold text-[#202124]">Backend</span>
+                  <div class="rounded-xl border border-slate-200/70 bg-white/70 px-3 py-3 text-sm text-[#5f6368] shadow-sm shadow-slate-300/20 backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-200 dark:shadow-slate-950/30">
+                    <span class="font-semibold text-[#202124] dark:text-white">Backend</span>
                     <p class="mt-1">Laravel, CodeIgniter, PHP</p>
                   </div>
-                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
-                    <span class="font-semibold text-[#202124]">Frontend</span>
+                  <div class="rounded-xl border border-slate-200/70 bg-white/70 px-3 py-3 text-sm text-[#5f6368] shadow-sm shadow-slate-300/20 backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-200 dark:shadow-slate-950/30">
+                    <span class="font-semibold text-[#202124] dark:text-white">Frontend</span>
                     <p class="mt-1">HTML, CSS, JS, Tailwind</p>
                   </div>
-                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
-                    <span class="font-semibold text-[#202124]">Database</span>
+                  <div class="rounded-xl border border-slate-200/70 bg-white/70 px-3 py-3 text-sm text-[#5f6368] shadow-sm shadow-slate-300/20 backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-200 dark:shadow-slate-950/30">
+                    <span class="font-semibold text-[#202124] dark:text-white">Database</span>
                     <p class="mt-1">MySQL, structured systems</p>
                   </div>
-                  <div class="rounded-xl border border-slate-200 bg-white px-3 py-3 text-sm text-[#5f6368] shadow-sm">
-                    <span class="font-semibold text-[#202124]">Ops</span>
+                  <div class="rounded-xl border border-slate-200/70 bg-white/70 px-3 py-3 text-sm text-[#5f6368] shadow-sm shadow-slate-300/20 backdrop-blur dark:border-slate-700/60 dark:bg-slate-900/60 dark:text-slate-200 dark:shadow-slate-950/30">
+                    <span class="font-semibold text-[#202124] dark:text-white">Ops</span>
                     <p class="mt-1">Hosting, domain, Cloudflare</p>
                   </div>
                 </div>
@@ -1225,10 +1238,10 @@
           </p>
         </div>
 
-        <div class="grid gap-8 lg:grid-cols-[0.95fr_1.05fr]">
+        <div class="grid grid-cols-1 gap-6 lg:grid-cols-[0.95fr_1.05fr]">
           <!-- Left Column: Contact Info -->
           <div
-            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm transition-all duration-500 hover:shadow-md"
+            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm transition-all duration-500 hover:shadow-md sm:p-8"
             data-aos="fade-right"
           >
             <h3 class="mb-6 text-2xl font-bold text-[#202124]">Let's connect</h3>
@@ -1237,17 +1250,19 @@
               <li>
                 <a
                   href="mailto:rizal@scriptmlbb.com"
-                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#4285F4]/30 hover:shadow-md"
+                  class="group flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#4285F4]/30 hover:shadow-md"
                 >
                   <div
-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
+                    class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#4285F4]/20 to-[#4285F4]/5 text-[#4285F4] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#4285F4]/20"
                   >
                     <i class="fa-solid fa-envelope text-lg"></i>
                   </div>
-                  <span
-                    class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#4285F4]"
-                    >rizal@scriptmlbb.com</span
-                  >
+                  <div class="flex-1 min-w-0">
+                    <span
+                      class="text-sm font-medium break-words text-[#5f6368] transition-colors duration-300 group-hover:text-[#4285F4]"
+                      >rizal@scriptmlbb.com</span
+                    >
+                  </div>
                 </a>
               </li>
 
@@ -1257,22 +1272,21 @@
                   href="https://rizal.scriptmlbb.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#34a853]/30 hover:shadow-md"
+                  class="group flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#34a853]/30 hover:shadow-md"
                 >
                   <div
-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
+                    class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#34a853]/20 to-[#34a853]/5 text-[#34a853] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#34a853]/20"
                   >
                     <i class="fa-solid fa-globe text-lg"></i>
                   </div>
-                  <div class="flex-1">
+                  <div class="flex-1 min-w-0">
                     <span
-                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#34a853] flex items-center justify-between"
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#34a853] break-words"
+                      >rizal.scriptmlbb.com</span
                     >
-                      rizal.scriptmlbb.com
-                      <i
-                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      ></i>
-                    </span>
+                    <i
+                      class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    ></i>
                   </div>
                 </a>
               </li>
@@ -1283,22 +1297,21 @@
                   href="https://github.com/rizal-x415ap"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#ea4335]/30 hover:shadow-md"
+                  class="group flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#ea4335]/30 hover:shadow-md"
                 >
                   <div
-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
+                    class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#ea4335]/20 to-[#ea4335]/5 text-[#ea4335] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#ea4335]/20"
                   >
                     <i class="fa-brands fa-github text-lg"></i>
                   </div>
-                  <div class="flex-1">
+                  <div class="flex-1 min-w-0">
                     <span
-                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#ea4335] flex items-center justify-between"
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#ea4335] break-words"
+                      >github.com/rizal-x415ap</span
                     >
-                      github.com/rizal-x415ap
-                      <i
-                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      ></i>
-                    </span>
+                    <i
+                      class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    ></i>
                   </div>
                 </a>
               </li>
@@ -1306,25 +1319,24 @@
               <!-- LinkedIn -->
               <li>
                 <a
-                  href="https://linkedin.com/in/rizalefd_"
+                  href="https://linkedin.com/in/rizalefd"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="group flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#fbbc05]/30 hover:shadow-md"
+                  class="group flex flex-wrap items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-[#fbbc05]/30 hover:shadow-md"
                 >
                   <div
-                    class="flex h-11 w-11 items-center justify-center rounded-full bg-gradient-to-br from-[#fbbc05]/20 to-[#fbbc05]/5 text-[#fbbc05] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#fbbc05]/20"
+                    class="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#fbbc05]/20 to-[#fbbc05]/5 text-[#fbbc05] transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-[#fbbc05]/20"
                   >
                     <i class="fa-brands fa-linkedin-in text-lg"></i>
                   </div>
-                  <div class="flex-1">
+                  <div class="flex-1 min-w-0">
                     <span
-                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#fbbc05] flex items-center justify-between"
+                      class="text-sm font-medium text-[#5f6368] transition-colors duration-300 group-hover:text-[#fbbc05] break-words"
+                      >linkedin.com/in/rizalefd</span
                     >
-                      linkedin.com/in/rizalefd_
-                      <i
-                        class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      ></i>
-                    </span>
+                    <i
+                      class="fa-solid fa-arrow-up-right text-xs ml-2 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    ></i>
                   </div>
                 </a>
               </li>
@@ -1333,7 +1345,7 @@
 
           <!-- Right Column: Contact Form -->
           <div
-            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-8 shadow-sm transition-all duration-500 hover:shadow-md"
+            class="rounded-[28px] border border-slate-200 bg-gradient-to-br from-slate-50 to-white p-6 shadow-sm transition-all duration-500 hover:shadow-md sm:p-8"
             data-aos="fade-left"
           >
             <form class="space-y-6">
@@ -1343,7 +1355,7 @@
                   id="name"
                   required
                   placeholder=" "
-                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm sm:text-base text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
                 />
                 <label
                   for="name"
@@ -1357,7 +1369,7 @@
                   id="email"
                   required
                   placeholder=" "
-                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm sm:text-base text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300"
                 />
                 <label
                   for="email"
@@ -1371,7 +1383,7 @@
                   rows="5"
                   required
                   placeholder=" "
-                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 pt-5 pb-2 text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300 resize-none"
+                  class="peer w-full rounded-2xl border border-slate-200 bg-white px-4 py-3 text-sm sm:text-base text-[#202124] placeholder-transparent transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#4285F4] focus:border-transparent hover:border-slate-300 resize-none"
                 ></textarea>
                 <label
                   for="message"
@@ -1381,7 +1393,7 @@
               </div>
               <button
                 type="submit"
-                class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-[#4285F4] to-[#4285F4] px-6 py-3 text-lg font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
+                class="group relative w-full overflow-hidden rounded-full bg-gradient-to-r from-[#4285F4] to-[#4285F4] px-5 py-3 text-base sm:px-6 sm:text-lg font-semibold text-white shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5 active:scale-95"
               >
                 <span class="relative z-10 flex items-center justify-center gap-2">
                   Send Message
@@ -1409,7 +1421,7 @@
             <i class="fa-solid fa-envelope"></i>
           </a>
           <a
-            href="https://linkedin.com/in/rizalefd_"
+            href="https://linkedin.com/in/rizalefd"
             target="_blank"
             class="flex h-10 w-10 items-center justify-center rounded-full bg-[#34a853]/10 text-[#34a853] transition hover:scale-110"
           >
@@ -1423,9 +1435,7 @@
             <i class="fa-brands fa-github"></i>
           </a>
         </div>
-        <p class="text-xs text-[#5f6368]">
-          © 2026 Rizal Efendi. All rights reserved. Designed & Developed with ❤️ by Rizal Efendi.
-        </p>
+        <p class="text-xs text-[#5f6368]">Designed & Developed by Rizal Efendi.</p>
       </div>
     </footer>
 
